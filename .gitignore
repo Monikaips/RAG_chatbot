@@ -1,0 +1,30 @@
+# Secrets — never commit keys
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+credentials.json
+
+# Virtual environments
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Local runtime data
+data/*
+!data/.gitkeep
+*.sqlite
+*.db
+vector_store/
+uploads/
+
+# OS
+.DS_Store
+Thumbs.db
