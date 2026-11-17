@@ -37,6 +37,8 @@ Extract these fields:
 - Location
 - Visa Category
 - Experience
+- Last Employer
+- Last Employer Period
 
 IMPORTANT RULES:
 
@@ -49,8 +51,41 @@ IMPORTANT RULES:
 6. Experience should represent total professional experience
    if it is explicitly stated or clearly available in the resume.
 7. Email and phone number must come directly from the resume.
-8. Return ONLY valid JSON.
-9. Do not include markdown or ```json formatting.
+8. Last Employer and Last Employer Period MUST be taken
+   from the single most recent work experience entry,
+   decided by employment dates — NOT by which job looks
+   biggest, NOT by client/deputation name, and NOT by
+   reading order if dates disagree.
+9. How to choose the most recent employer:
+   - Scan EVERY work-experience / employment block.
+   - Compare start and end dates for each block.
+   - Prefer the block whose end date is latest.
+   - "Present", "Till date", "Current", or ongoing means
+     that block is more recent than any ended job.
+   - If the same company appears more than once
+     (e.g. "Rejoined"), use the LATEST stint only.
+   - Example: "Jun 2025 – May 2026" at Sports Mechanics
+     beats "Dec 2020 – Nov 2023" at Sonata — return
+     Sports Mechanics, not Sonata.
+10. last_employer = company / organization name ONLY.
+    NEVER put the job title in last_employer.
+    - Correct: "Sports Mechanics India Pvt Ltd (SMIPL)"
+    - Correct freelance: "Independent" or
+      "Freelance / Independent"
+    - Wrong: "Freelance Network Security Engineer"
+      (that is the job title, not the employer)
+    - Wrong: "Senior Security Engineer"
+    For lines like
+    "Job Title | Company Name", use the part AFTER "|"
+    as last_employer, never the title before "|".
+    Do NOT use a deputed client as the employer unless
+    no company name is given.
+11. last_employer_period = the date range for THAT same
+    latest stint only (e.g. "Feb 2025 – Present",
+    "Jun 2025 – May 2026"). Keep the resume's wording
+    when clear.
+12. Return ONLY valid JSON.
+13. Do not include markdown or ```json formatting.
 
 Return exactly this structure:
 
@@ -62,7 +97,9 @@ Return exactly this structure:
     "mobile": "value",
     "location": "value",
     "visa_category": "value",
-    "experience": "value"
+    "experience": "value",
+    "last_employer": "value",
+    "last_employer_period": "value"
 }}
 
 Resume:
@@ -99,7 +136,9 @@ def extract_candidate_details(resume_text):
             "mobile": "Not Mentioned",
             "location": "Not Mentioned",
             "visa_category": "Not Mentioned",
-            "experience": "Not Mentioned"
+            "experience": "Not Mentioned",
+            "last_employer": "Not Mentioned",
+            "last_employer_period": "Not Mentioned",
         }
 
 

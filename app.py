@@ -1650,7 +1650,11 @@ elif ui_step == 3:
                                     "visa_category":
                                         "Not Mentioned",
                                     "experience":
-                                        "Not Mentioned"
+                                        "Not Mentioned",
+                                    "last_employer":
+                                        "Not Mentioned",
+                                    "last_employer_period":
+                                        "Not Mentioned",
                                 }
 
                             candidate["source"] = source
@@ -1680,6 +1684,10 @@ elif ui_step == 3:
                                 "visa_category":
                                     "Not Mentioned",
                                 "experience":
+                                    "Not Mentioned",
+                                "last_employer":
+                                    "Not Mentioned",
+                                "last_employer_period":
                                     "Not Mentioned",
                                 "source":
                                     source
@@ -1852,9 +1860,25 @@ elif ui_step == 3:
                             "experience",
                             "visa_category",
                             "position",
+                            "last_employer",
+                            "last_employer_period",
                         ):
                             extracted = candidate.get(field)
                             evaluated = evaluation.get(field)
+
+                            # Always reuse Candidate Details extraction for
+                            # last employer fields — do not let ranking
+                            # matcher overwrite with a different company.
+                            if field in (
+                                "last_employer",
+                                "last_employer_period",
+                            ):
+                                if (
+                                    extracted
+                                    and extracted != "Not Mentioned"
+                                ):
+                                    merged[field] = extracted
+                                continue
 
                             if (
                                 extracted
@@ -1978,6 +2002,16 @@ elif ui_step == 4:
                 )
 
                 row.setdefault(
+                    "last_employer",
+                    "Not Mentioned"
+                )
+
+                row.setdefault(
+                    "last_employer_period",
+                    "Not Mentioned"
+                )
+
+                row.setdefault(
                     "source",
                     "Unknown"
                 )
@@ -2015,6 +2049,12 @@ elif ui_step == 4:
                 "experience":
                     "Experience",
 
+                "last_employer":
+                    "Last Employer",
+
+                "last_employer_period":
+                    "Last Employer Period",
+
                 "source":
                     "Resume File"
                 }
@@ -2037,6 +2077,10 @@ elif ui_step == 4:
             "Visa Category",
 
             "Experience",
+
+            "Last Employer",
+
+            "Last Employer Period",
 
             "Resume File"
             ]
@@ -2098,7 +2142,9 @@ elif ui_step == 4:
                 "F": 30,
                 "G": 22,
                 "H": 20,
-                "I": 35
+                "I": 28,
+                "J": 24,
+                "K": 35
                 }
 
                 for column, width in (

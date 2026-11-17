@@ -15,6 +15,8 @@ DEFAULT_RANKING_COLUMNS = [
     "Years of Exp",
     "Email",
     "Mobile",
+    "Last Employer",
+    "Last Employer Period",
 ]
 
 PRESET_RANKING_COLUMNS = [
@@ -33,6 +35,8 @@ PRESET_RANKING_COLUMNS = [
     "Position",
     "Resume File",
     "Reason",
+    "Last Employer",
+    "Last Employer Period",
 ]
 
 # Internal field key used in candidate/evaluation dicts
@@ -52,6 +56,8 @@ COLUMN_FIELD_MAP = {
     "Position": "position",
     "Resume File": "source",
     "Reason": "reason",
+    "Last Employer": "last_employer",
+    "Last Employer Period": "last_employer_period",
 }
 
 # Columns the JD matcher LLM should compute (not just copy from extractor)
@@ -98,6 +104,19 @@ COLUMN_INSTRUCTIONS = {
     "Position": "Current or target role/title from the resume.",
     "Resume File": "Leave as empty string; filled by the system.",
     "Reason": "Short explanation for the score and verdict.",
+    "Last Employer": (
+        "Company/organization of the chronologically "
+        "latest stint (latest end date; Present wins). "
+        "For 'Title | Company', use Company only — never "
+        "the job title. Freelance example: Independent "
+        "or Freelance / Independent, NOT "
+        "'Freelance Network Security Engineer'. "
+        "Or Not Mentioned."
+    ),
+    "Last Employer Period": (
+        "Date range for that same latest stint only "
+        '(e.g. "Feb 2025 – Present"), or Not Mentioned.'
+    ),
 }
 
 
