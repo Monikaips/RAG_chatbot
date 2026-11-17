@@ -84,6 +84,7 @@ IMPORTANT RULES:
     latest stint only (e.g. "Feb 2025 – Present",
     "Jun 2025 – May 2026"). Keep the resume's wording
     when clear.
+    
 12. Return ONLY valid JSON.
 13. Do not include markdown or ```json formatting.
 
